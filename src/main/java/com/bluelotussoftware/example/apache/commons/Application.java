@@ -46,21 +46,22 @@ public class Application {
      */
     public static void main(String[] args) throws ConfigurationException {
         Application application = new Application();
-        application.createProperties();
+        
         application.setBackground("#c53478");
         String background = application.getBackground();
         System.out.println("background-color:" + background);
+        String name = application.getName();
+        System.out.println("name:" + name);
     }
 
-    /**
-     * <p>Creates a property file on the local system disk.</p>
-     * @throws ConfigurationException if an <code>Exception</code> is encountered.
-     */
-    public void createProperties() throws ConfigurationException {
-        // Create a new property and save it.
-        PropertiesConfiguration config = new PropertiesConfiguration();
-        config.save(PROPERTIES_FILE_NAME);
-    }
+    private String getName() {
+    	PropertiesConfiguration  config = ConfigManager.instance().getConfig();
+
+        String name = (String) config.getProperty("name");
+        return name;
+	}
+
+	
 
     /**
      * <p>Sets a property called <code>colors.background</code> to the value provided, or assigns a color
@@ -69,8 +70,8 @@ public class Application {
      * @throws ConfigurationException if an <code>Exception</code> is encountered. 
      */
     public void setBackground(String backgroundColor) throws ConfigurationException {
-        PropertiesConfiguration config = new PropertiesConfiguration();
-        config.load(PROPERTIES_FILE_NAME);
+    	
+		PropertiesConfiguration  config = ConfigManager.instance().getConfig();
         if (backgroundColor == null) {
             config.setProperty("colors.background", "#000000");
         } else {
@@ -86,8 +87,8 @@ public class Application {
      * @throws ConfigurationException if an <code>Exception</code> is encountered.
      */
     public String getBackground() throws ConfigurationException {
-        PropertiesConfiguration config = new PropertiesConfiguration();
-        config.load(PROPERTIES_FILE_NAME);
+		PropertiesConfiguration  config = ConfigManager.instance().getConfig();
+
         String background = (String) config.getProperty("colors.background");
         return background;
     }

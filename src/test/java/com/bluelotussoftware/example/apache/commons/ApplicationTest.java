@@ -44,7 +44,7 @@ public class ApplicationTest {
     @Before
     public void setUp() throws ConfigurationException {
         Application application = new Application();
-        application.createProperties();
+       
     }
 
     /**
@@ -55,7 +55,7 @@ public class ApplicationTest {
     public void tearDown() {
         // Delete the configuration file between tests.
         File f = new File("configuration.properties");
-        f.delete();
+//        f.delete();
     }
 
     /**
